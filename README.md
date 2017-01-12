@@ -81,7 +81,7 @@ deploy-cnn-chip-classifier has one output as detailed below.
 
 | Name  | Type | Description:                                      |
 |-------|------|---------------------------------------------------|
-| classified_geojson | Directory | Contains the file classified.geojson. Each feature has a 'CNN_class' and certainty propertie, which represent the model's classification and the certainty in that classification, respectively. |
+| classified_geojson | Directory | Contains the file classified.geojson. Each feature has a 'CNN_class' and certainty properties, which represent the model's classification and confidence in the classification, respectively. |
 
 
 ## Advanced
