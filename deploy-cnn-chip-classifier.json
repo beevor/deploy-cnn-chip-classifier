@@ -1,0 +1,65 @@
+{
+    "name": "deploy-cnn-chip-classifier",
+    "description": "Deploy a trained convolutional neural network classifier on chips.",
+    "properties": {
+        "isPublic": true,
+        "timeout": 43200
+    },
+    "inputPortDescriptors": [
+        {
+            "name": "chips",
+            "type": "directory",
+            "description": "Contains the chips to deploy on. This should be the output of the chip-from-vrt task.",
+            "required": true
+        },
+        {
+            "name": "model",
+            "type": "directory",
+            "description": "Contains the trained model (as an h5 file) that will be used to classify the chips. This should be the output of the train-cnn-chip-classifier task.",
+            "required": true
+        },
+        {
+            "name": "classes",
+            "type": "string",
+            "description": "The classes to sort each polygon into. Different class names should be separated by commas and must be in the same order that the model was trained on (e.g- 'No swimming pool, Swimming pool'). If this is omitted the classes will be the same as those set in train-cnn-chip-classifier.",
+            "required": false
+        },
+        {
+            "name": "bit_depth",
+            "type": "string",
+            "description": "Int: number of bits in the input imagery. Defaults to 8",
+            "required": false
+        },
+        {
+            "name": "min_side_dim",
+            "type": "string",
+            "description": "Int: minimum acceptable side dimension (in pixels) of polygons to classify. Defaults to 0.",
+            "required": false
+        },
+        {
+            "name": "max_side_dim",
+            "type": "string",
+            "description": "Int: maximum acceptable side dimension (in pixels) of polygons to classify. If larger than the input shape to the network, all chips will be downsampled to match the input shape. Only use this feature if the model was also trained on downsampled imagery. Defaults to size of input to network.",
+            "required": false
+        }
+
+    ],
+    "outputPortDescriptors": [
+        {
+            "name": "classified_geojson",
+            "type": "directory",
+            "description": "Contains the classified polygons in a geojson file."
+        }
+    ],
+    "containerDescriptors": [
+        {
+            "type": "DOCKER",
+            "properties": {
+                "image": "naldeborgh/deploy-cnn-chip-classifier",
+                "domain": "nvidiagpu"
+            },
+            "command": "python /deploy-cnn-chip-classifier.py",
+            "isPublic": true
+        }
+    ]
+}
