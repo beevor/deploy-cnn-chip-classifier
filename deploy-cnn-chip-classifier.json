@@ -1,6 +1,6 @@
 {
     "name": "deploy-cnn-chip-classifier",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Deploy a trained convolutional neural network classifier on chips.",
     "properties": {
         "isPublic": true,
@@ -56,7 +56,7 @@
         {
             "type": "DOCKER",
             "properties": {
-                "image": "naldeborgh/deploy-cnn-chip-classifier",
+                "image": "platformstories/deploy-cnn-chip-classifier",
                 "domain": "nvidiagpu"
             },
             "command": "python /deploy-cnn-chip-classifier.py",
