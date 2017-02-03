@@ -213,7 +213,7 @@ class DeployClassifier(GbdxTaskInterface):
 
         # Get predicted classes and certainty
         yhat = [self.classes[np.argmax(i)] for i in yprob]
-        ycert = [round(float(np.max(j)), 3) for j in yprob]
+        ycert = [round(float(np.max(j)), 10) for j in yprob]
 
         # Update geojson, save as output_name
         data = zip(yhat, ycert)
