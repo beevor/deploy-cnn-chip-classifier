@@ -69,7 +69,7 @@ The following table lists the input ports of deploy-cnn-chip-classifier. Note th
 | chips | Directory | Contains GeoTiff image chips (feature_id.tif) and a reference geojson. Should be the output of chip-from-vrt. | True |
 | model | Directory | Contains a trained Keras model that will be used to classify the chips. This should be the output of the train-cnn-chip-classifier task. | True |
 | classes | String | The classes to sort each chip into. Different class names should be separated by commas and must be in the same order that the model was trained on (e.g- 'No Buildings, Buildings'). If this is omitted the classes will be obtained from the info/classes.json file in the model input. | False |
-| bit_depth | String | Bit depth of the chips. This is necessary for proper normalization of the input to the network. Defaults to 8. | False |
+| max_pixel_intensity | String | Maximum intensity of pixels in chips (ie. 2 <sup>bit_depth</sup> - 1). Defaults to 255. | False |
 | min_side_dim | String | Minimum acceptable side dimension (in pixels) of chips to classify. Defaults to 0. | False |
 | max_side_dim | String | Maximum acceptable side dimension (in pixels) of chips to classify. If this is different than the input_shape side dimension of the input model, chips will be reshaped to match the input_shape. Defaults to the size specified by the model input. | False |
 

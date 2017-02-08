@@ -1,4 +1,4 @@
-# gbdx.Task('deploy-classifier', chips + geoj, model, classes, bit_depth, min_side_dim, max_side_dim)
+# gbdx.Task('deploy-classifier', chips + geoj, model, classes, max_pixel_intensity, min_side_dim, max_side_dim)
 import logging
 import ast, os, time
 import geojson, json
@@ -89,7 +89,7 @@ class DeployClassifier(GbdxTaskInterface):
 
         # Get string inputs
         self.classes = self.get_input_string_port('classes', default=None)
-        self.bit_depth = int(self.get_input_string_port('bit_depth', default='8'))
+        self.max_pixel_intensity = int(self.get_input_string_port('max_pixel_intensity', default='8'))
         self.min_side_dim = int(self.get_input_string_port('min_side_dim', default='0'))
         self.max_side_dim = ast.literal_eval(self.get_input_string_port('max_side_dim',
                                                                         default='None'))
@@ -166,14 +166,13 @@ class DeployClassifier(GbdxTaskInterface):
         Each chip will be padded to the input side dimension
         '''
         chip_names = []
-        norm_val = float(2 ** self.bit_depth - 1)
 
         # Get chip names for each feature
         for ct, feat in enumerate(feature_collection):
             name = str(feat['properties']['feature_id']) + '.tif'
             chip_names.append([name, ct])
 
-        get = partial(self.get_chip, input_shape=input_shape, norm_val=norm_val,
+        get = partial(self.get_chip, input_shape=input_shape, norm_val=self.max_pixel_intensity,
                       min_side_dim=self.min_side_dim, max_side_dim=self.max_side_dim)
         p = Pool(cpu_count())
         chips = p.map(get, chip_names)
