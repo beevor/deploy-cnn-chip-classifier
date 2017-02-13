@@ -57,12 +57,12 @@ def get_chip(chip_name_num, input_shape, norm_val, max_side_dim, min_side_dim):
     for n in xrange(1, input_shape[0] + 1):
         raster_array.append(ds.GetRasterBand(n).ReadAsArray() / norm_val)
 
-        # pad to input shape
-        chan, h, w = np.shape(raster_array)
-        pad_h, pad_w = max_side_dim - h, max_side_dim - w
-        chip_patch = np.pad(raster_array, [(0, 0), (pad_h/2, (pad_h - pad_h/2)),
-                            (pad_w/2, (pad_w - pad_w/2))], 'constant',
-                            constant_values=0)
+    # pad to input shape
+    chan, h, w = np.shape(raster_array)
+    pad_h, pad_w = max_side_dim - h, max_side_dim - w
+    chip_patch = np.pad(raster_array, [(0, 0), (pad_h/2, (pad_h - pad_h/2)),
+                        (pad_w/2, (pad_w - pad_w/2))], 'constant',
+                        constant_values=0)
 
     # resize chip if necessary
     if max_side_dim != input_shape[-1]:
@@ -89,7 +89,7 @@ class DeployClassifier(GbdxTaskInterface):
 
         # Get string inputs
         self.classes = self.get_input_string_port('classes', default=None)
-        self.max_pixel_intensity = int(self.get_input_string_port('max_pixel_intensity', default='8'))
+        self.max_pixel_intensity = float(self.get_input_string_port('max_pixel_intensity', default='8'))
         self.min_side_dim = int(self.get_input_string_port('min_side_dim', default='0'))
         self.max_side_dim = ast.literal_eval(self.get_input_string_port('max_side_dim',
                                                                         default='None'))

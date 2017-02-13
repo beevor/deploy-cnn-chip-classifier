@@ -1,6 +1,6 @@
 {
     "name": "deploy-cnn-chip-classifier",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "Deploy a trained convolutional neural network classifier on chips.",
     "properties": {
         "isPublic": true,
