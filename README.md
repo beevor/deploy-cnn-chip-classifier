@@ -1,8 +1,8 @@
 # deploy-cnn-chip-classifier
 
-A GBDX task for deploying a trained Convolutional Neural Network (CNN) classifier on a set of target GeoTiff image chips. The task returns a geojson file 'classified.geojson' containing the input chip geometries and feature ids, each with a classification result and confidence score. The input model is a trained [Keras CNN](https://keras.io/) that should be obtained from [train-cnn-chip-classifier](https://github.com/PlatformStories/train-cnn-chip-classifier).
+A GBDX task for deploying a trained Convolutional Neural Network (CNN) classifier on a set of target GeoTiff image chips. The task returns a geojson file 'classified.geojson' containing the input chip geometries and feature ids, each with a classification result and confidence score. The input model is a trained [Keras CNN](https://keras.io/) that should be the output of the [train-cnn-chip-classifier](https://github.com/PlatformStories/train-cnn-chip-classifier) task.
 
-<img src='images/deploy-cnn-chip-classifier.png' width=500>
+<img src='images/deploy-wf.png' width=750>
 
 
 ## Run
@@ -33,7 +33,6 @@ Here we run though a sample execution of the deploy-cnn-chip-classifier task. We
 
     ```python
     deploy_task.inputs.classes = 'No Buildings, Buildings'
-    deploy_task.inputs.bit_depth = '8'
     deploy_task.inputs.max_side_dim = '270'
     ```
 
