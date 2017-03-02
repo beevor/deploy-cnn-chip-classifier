@@ -111,16 +111,43 @@ Then:
 
 ```bash
 cd deploy-cnn-chip-classifier
-docker build -t yourusername/deploy-cnn-chip-classifier
+docker build -t deploy-cnn-chip-classifier
 ```
 
-Then push the image to Docker Hub:
+### Try out locally
+
+Create a container in interactive mode and mount the sample input under `/mnt/work/input/`:
 
 ```bash
+docker run -v full/path/to/sample-input:/mnt/work/input -it deploy-cnn-chip-classifier
+```
+
+Then, within the container:
+
+```bash
+python /deploy-cnn-chip-classifier
+```
+Watch progress of stdout to ensure task is running.
+
+
+### Docker Hub
+
+Login to Docker Hub
+
+```bash
+docker login
+```
+
+Tag your image using your username and push it to DockerHub:
+
+```bash
+docker tag deploy-cnn-chip-classifier yourusername/deploy-cnn-chip-classifier
 docker push yourusername/deploy-cnn-chip-classifier
 ```
 
 The image name should be the same as the image name under containerDescriptors in deploy-cnn-chip-classifier.json.
+
+Alternatively, you can link this repository to a [Docker automated build](https://docs.docker.com/docker-hub/builds/). Every time you push a change to the repository, the Docker image gets automatically updated.
 
 
 ### Register on GBDX
@@ -132,3 +159,5 @@ from gbdxtools import Interface
 gbdx = Interface()
 gbdx.task_registry.register(json_filename='deploy-cnn-chip-classifier.json')
 ```
+
+Note: If you change the task image, you need to reregister the task with a higher version number in order for the new image to take effect. Keep this in mind especially if you use Docker automated build.
