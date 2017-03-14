@@ -3,9 +3,9 @@ import logging
 import ast, os, time
 import geojson, json
 import numpy as np
+import geojsontools as gt
 
 from keras.models import load_model
-from mltools import geojson_tools as gt
 from shutil import copyfile
 from functools import partial
 from multiprocessing import Pool, Process, Queue, cpu_count
