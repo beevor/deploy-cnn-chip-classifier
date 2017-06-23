@@ -18,8 +18,8 @@ logging.basicConfig(filename='out.log',level=logging.DEBUG)
 
 def check_chip(feature, min_side_dim, max_side_dim):
     '''
-    delete a chip if it is too large or small. This must take place outside of the class
-        to be performed in parallel.
+    Delete a chip if it is too large or small. This must take place outside of the class
+    to be performed in parallel.
     '''
     chip_name = str(feature['properties']['feature_id']) + '.tif'
 
@@ -44,7 +44,7 @@ def check_chip(feature, min_side_dim, max_side_dim):
 def get_chip(chip_name_num, input_shape, norm_val, max_side_dim, min_side_dim):
     '''
     Get raster array from a chip given the chip name. This is outside the class to allow
-        parallel performance
+    parallel performance.
 
     chip_name_num: [chip_name, order it should appear in list (int)]
     '''
@@ -80,7 +80,7 @@ class DeployClassifier(GbdxTaskInterface):
 
     def __init__(self):
         '''
-        Instantiate string and data inputs, organize data for training
+        Instantiate string and data inputs, organize data for training.
         '''
         GbdxTaskInterface.__init__(self)
         self.check_chip = check_chip
@@ -162,8 +162,8 @@ class DeployClassifier(GbdxTaskInterface):
 
     def get_chips_from_features(self, feature_collection, input_shape):
         '''
-        Load chips into memory from a list of features in parallel
-        Each chip will be padded to the input side dimension
+        Load chips into memory from a list of features in parallel.
+        Each chip will be padded to the input side dimension.
         '''
         chip_names = []
 
@@ -188,7 +188,7 @@ class DeployClassifier(GbdxTaskInterface):
 
     def deploy_model(self, model, target_geojson):
         '''
-        deploy the model on a feature collection. saves a geojson with
+        Deploys the model on a feature collection. Saves a geojson with the classifications.
         '''
         yprob, out_file = [], 'classified.geojson'
         input_shape = model.input_shape[-3:]
@@ -225,7 +225,7 @@ class DeployClassifier(GbdxTaskInterface):
 
     def invoke(self):
         '''
-        Execute task
+        Execute task.
         '''
         # Load model
         mod_time = time.time()
